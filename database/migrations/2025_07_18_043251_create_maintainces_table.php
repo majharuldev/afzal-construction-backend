@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('service_type');
             $table->string('parts');
             $table->string('maintaince_type');
-            $table->string('vehicle_no');
+            $table->string('equ_no');
             $table->string('parts_price');
             $table->string('service_charge');
             $table->string('total_cost');

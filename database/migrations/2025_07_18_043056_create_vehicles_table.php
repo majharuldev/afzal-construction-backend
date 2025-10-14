@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('user_id'); // vehicle belongs to a user
-            $table->string('date');
-            $table->string('driver_name');
-            $table->string('vehicle_name');
+            $table->string('operator_name')->nullable();
+            $table->string('vehicle_name')->nullable();
             $table->string('insurance_date')->nullable();
-            $table->string('vehicle_size')->nullable();
+            $table->string('vehcile_size')->nullable();
+            $table->string('vehicle_type')->nullable();
             $table->string('vehicle_category')->nullable();
             $table->string('reg_zone')->nullable();
             $table->string('reg_serial')->nullable();
@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('route_per_date')->nullable();
             $table->string('fitness_date')->nullable();
             $table->string('fuel_capcity')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }

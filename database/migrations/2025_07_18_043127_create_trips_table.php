@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->BigInteger('user_id'); // vehicle belongs to a user
-            $table->string('start_date');
-            $table->string('end_date')->nullable();
+            $table->string('date');
             $table->string('customer')->nullable();
             $table->string('branch_name')->nullable();
             $table->string('load_point')->nullable();

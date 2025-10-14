@@ -43,8 +43,7 @@ class TripController extends Controller
             $trip = Trip::create([
                 'user_id'          => Auth::id(),
                 'customer'         => $request->customer,
-                'start_date'       => $request->start_date,
-                'end_date'         => $request->end_date,
+                'date'       => $request->date,
                 'branch_name'      => $request->branch_name,
                 'load_point'       => $request->load_point,
                 'additional_load'  => $request->additional_load,
