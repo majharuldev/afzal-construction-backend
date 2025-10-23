@@ -31,6 +31,10 @@ use App\Http\Controllers\Api\V1\OfficeLedgerController;
 use App\Http\Controllers\Api\V1\VendorLedgerController;
 use App\Http\Controllers\Api\V1\VendorPaymentController;
 use App\Http\Controllers\Api\V1\CustomerLedgerController;
+use App\Http\Controllers\Api\V1\GarageCustomerController;
+use App\Http\Controllers\Api\V1\GarageCustomerExpenseController;
+use App\Http\Controllers\Api\V1\GarageCustomerLedgerController;
+use App\Http\Controllers\Api\V1\GarageVaraController;
 use App\Http\Controllers\Api\V1\LoanController;
 use App\Http\Controllers\Api\V1\PaymentRecieveController;
 use App\Http\Controllers\Api\V1\SupplierLedgerController;
@@ -152,5 +156,20 @@ Route::prefix('v1')->group(function () {
 
     // bonous
     Route::apiResource('bonous', BonousController::class);
+
+
+    //  
+    // Garage customer
+    Route::apiResource('garageCustomer', GarageCustomerController::class);
+    
+    // garage vara
+    Route::apiResource('garageVara', GarageVaraController::class);
+
+    // 
+    Route::apiResource('garageExp', GarageCustomerExpenseController::class);
+
+    // 
+    Route::apiResource('garageCustomerLedger', GarageCustomerLedgerController::class);
+   
   });
 });

@@ -23,12 +23,14 @@ return new class extends Migration
             $table->string('unload_point')->nullable();
             $table->string('transport_type')->nullable();
             $table->string('trip_type')->nullable();
-            $table->string('trip_id')->nullable();
+            $table->string('trip_no')->nullable();
             $table->string('sms_sent')->nullable();
             $table->string('vehicle_no')->nullable();
             $table->string('driver_name')->nullable();
             $table->string('vehicle_category')->nullable();
             $table->string('vehicle_size')->nullable();
+            $table->string('vendor_name')->nullable();
+            $table->string('additional_cost')->nullable();
             $table->string('product_details')->nullable();
             $table->string('driver_mobile')->nullable();
             $table->string('challan')->nullable();
@@ -48,7 +50,20 @@ return new class extends Migration
             $table->string('others_cost')->nullable();
             $table->string('chada')->nullable();
             $table->string('labor')->nullable();
+            $table->string('fuel_cost')->nullable();
+            $table->string('challan_cost')->nullable();
+            $table->string('d_day')->nullable();
+            $table->string('d_total')->nullable();
+            $table->string('d_amount')->nullable();
+
+            // equip extra
+            $table->string('work_time')->nullable();
+            $table->string('rate')->nullable();
+            $table->string('work_place')->nullable();
+
             $table->string('status')->nullable();
+            $table->string('created_by')->nullable();
+            // equiupmen 
             $table->timestamps();
         });
     }

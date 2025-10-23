@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('lincense')->nullable();
             $table->string('expire_date')->nullable();
             $table->string('lincense_image')->nullable();
-            $table->string('ref')->nullable();
             $table->string('status')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }

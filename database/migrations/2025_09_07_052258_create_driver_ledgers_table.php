@@ -30,10 +30,12 @@ return new class extends Migration
             $table->string('labor')->nullable();
             $table->string('others_cost')->nullable();
             $table->string('food_cost')->nullable();
+            $table->string('fuel_cost')->nullable();
             $table->string('total_exp')->nullable();
             $table->string('due_amount')->nullable();
             $table->string('opening_balance')->nullable();
             $table->string('balance')->nullable();
+            $table->string('challan_cost')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

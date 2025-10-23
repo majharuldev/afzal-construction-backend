@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('bonouses', function (Blueprint $table) {
             $table->id();
-             $table->BigInteger('user_id');
+            $table->BigInteger('user_id');
             $table->string('employee_id')->nullable();
             $table->string('amount')->nullable();
-            $table->string('month_name')->nullable();
+            $table->string('month_off')->nullable();
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();

@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('amount')->nullable();
             $table->string('date')->nullable();
             $table->string(' category')->nullable();
+            $table->string(' branch')->nullable();
             $table->string('status')->nullable();
             $table->string('remarks')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('rate')->nullable();
             $table->string('vat')->nullable();
             $table->string('vehicle_size')->nullable();
+            $table->string('customer_name')->nullable();
             $table->string('vehicle_category')->nullable();
             $table->timestamps();
         });

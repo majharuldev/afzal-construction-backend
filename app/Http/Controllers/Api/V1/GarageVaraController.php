@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GarageVaraController extends Controller
 {
-    
+
     // get all Data by userid
     public function index()
     {

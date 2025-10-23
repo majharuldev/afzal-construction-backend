@@ -30,6 +30,11 @@ return new class extends Migration
             $table->string('priority')->nullable();
             $table->string('validity')->nullable();
             $table->string('status')->nullable();
+            $table->string('sms_sent')->nullable();
+            $table->string('service_date')->nullable();
+            $table->string('next_service_date')->nullable();
+            $table->string('last_km')->nullable();
+            $table->string('next_km')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();
         });

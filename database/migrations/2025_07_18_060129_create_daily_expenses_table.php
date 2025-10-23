@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('paid_to');
             $table->string('amount');
             $table->string('status');
+            $table->string('created_by');
             $table->timestamps();
         });
     }

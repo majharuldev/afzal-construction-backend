@@ -71,6 +71,7 @@ class TripController extends Controller
                 'night_guard'      => $request->night_guard,
                 'toll_cost'        => $request->toll_cost,
                 'feri_cost'        => $request->feri_cost,
+                'fuel_cost'        => $request->fuel_cost,
                 'police_cost'      => $request->police_cost,
                 'chada'            => $request->chada,
                 'labor'            => $request->labor,
@@ -78,14 +79,17 @@ class TripController extends Controller
                 'others_cost'      => $request->others_cost,
                 'vendor_name'      => $request->vendor_name,
                 'additional_cost'  => $request->additional_cost,
-                'status'           => "Pending",
+                'd_day'  => $request->d_day,
+                'd_amount'  => $request->d_amount,
+                'd_total'  => $request->d_total,
+                'status'           => $request->status,
             ]);
 
             // Insert into driver or vendor ledger based on transport type
             if ($request->transport_type === "own_transport") {
                 DriverLedger::create([
                     'user_id'          => Auth::id(),
-                    'date'             => $request->start_date,
+                    'date'             => $request->date,
                     'driver_name'      => $request->driver_name,
                     'trip_id'          => $trip->id,
                     'load_point'       => $request->load_point,
@@ -97,6 +101,9 @@ class TripController extends Controller
                     'toll_cost'        => $request->toll_cost,
                     'feri_cost'        => $request->feri_cost,
                     'police_cost'      => $request->police_cost,
+                    'fuel_cost'      => $request->fuel_cost,
+                    'food_cost'      => $request->food_cost,
+                    'challan_cost'      => $request->challan_cost,
                     'chada'            => $request->chada,
                     'others_cost'      => $request->others_cost,
                     'labor'            => $request->labor,
@@ -105,7 +112,7 @@ class TripController extends Controller
             } else {
                 VendorLedger::create([
                     'user_id'     => Auth::id(),
-                    'date'        => $request->start_date,
+                    'date'        => $request->date,
                     'driver_name' => $request->driver_name,
                     'trip_id'     => $trip->id,
                     'load_point'  => $request->load_point,
@@ -122,7 +129,7 @@ class TripController extends Controller
             // Insert into branch ledgers
             OfficeLedger::create([
                 'user_id'     => Auth::id(),
-                'date'        => $request->start_date,
+                'date'        => $request->date,
                 'unload_point' => $request->unload_point,
                 'load_point'  => $request->load_point,
                 'customer'    => $request->customer,
@@ -135,7 +142,7 @@ class TripController extends Controller
 
             CustomerLedger::create([
                 'user_id'          => Auth::id(),
-                'working_date'  => $request->start_date,  // fixed spelling
+                'working_date'  => $request->date,  // fixed spelling
                 'customer_name' => $request->customer,
                 'trip_id'       => $trip->id,
                 'chalan'       => $request->challan,
@@ -144,6 +151,9 @@ class TripController extends Controller
                 'vehicle_no'    => $request->vehicle_no,
                 'bill_amount'   => $request->total_rent, // fixed
                 'driver_name'   => $request->driver_name,
+                'd_day'  => $request->d_day,
+                'd_amount'  => $request->d_amount,
+                'd_total'  => $request->d_total,
             ]);
 
             DB::commit();
@@ -186,8 +196,7 @@ class TripController extends Controller
             // Update trip table
             $trip->update([
                 'customer'         => $request->customer,
-                'start_date'       => $request->start_date,
-                'end_date'         => $request->end_date,
+                'date'       => $request->date,
                 'branch_name'      => $request->branch_name,
                 'load_point'       => $request->load_point,
                 'additional_load'  => $request->additional_load,
@@ -222,7 +231,7 @@ class TripController extends Controller
                 'others_cost'      => $request->others_cost,
                 'vendor_name'      => $request->vendor_name,
                 'additional_cost'  => $request->additional_cost,
-                'status'           => $request->status ?? $trip->status,
+                'status'           => $request->status,
             ]);
 
             // Update DriverLedger or VendorLedger
@@ -242,6 +251,9 @@ class TripController extends Controller
                         'toll_cost'        => $request->toll_cost,
                         'feri_cost'        => $request->feri_cost,
                         'police_cost'      => $request->police_cost,
+                        'fuel_cost'      => $request->fuel_cost,
+                        'food_cost'      => $request->food_cost,
+                        'challan_cost'      => $request->challan_cost,
                         'chada'            => $request->chada,
                         'others_cost'      => $request->others_cost,
                         'labor'            => $request->labor,

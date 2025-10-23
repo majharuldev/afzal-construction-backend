@@ -34,6 +34,10 @@ return new class extends Migration
             $table->string('delar_name')->nullable();
             $table->string('masking')->nullable();
             $table->string('unload_charge')->nullable();
+            $table->string('d_day')->nullable();
+            $table->string('d_amount')->nullable();
+            $table->string('d_total')->nullable();
+
 
 
             $table->timestamps();
