@@ -36,6 +36,10 @@ return new class extends Migration
             $table->string('opening_balance')->nullable();
             $table->string('balance')->nullable();
             $table->string('challan_cost')->nullable();
+
+            $table->string('work_time')->nullable();
+            $table->string('rate')->nullable();
+            $table->string('work_place')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

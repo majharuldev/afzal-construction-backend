@@ -19,15 +19,9 @@ class TripController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
 
-        if ($user->role === 'admin' || $user->role === 'super') {
-            $trips = Trip::latest()->get();
-        } else {
-            $trips = Trip::where('user_id', $user->id)
-                ->latest()
-                ->get();
-        }
+        $trips = Trip::latest()->get();
+
 
         return response()->json($trips);
     }
@@ -50,7 +44,7 @@ class TripController extends Controller
                 'unload_point'     => $request->unload_point,
                 'transport_type'   => $request->transport_type,
                 'trip_type'        => $request->trip_type,
-                'trip_id'          => $request->trip_id,
+                'trip_no'          => $request->trip_no,
                 'sms_sent'         => $request->sms_sent,
                 'vehicle_no'       => $request->vehicle_no,
                 'driver_name'      => $request->driver_name,
@@ -79,9 +73,19 @@ class TripController extends Controller
                 'others_cost'      => $request->others_cost,
                 'vendor_name'      => $request->vendor_name,
                 'additional_cost'  => $request->additional_cost,
+                'created_by'  => $request->created_by,
+
+                // equipment
+                'work_time'  => $request->work_time,
+                'rate'  => $request->rate,
+                'work_place'  => $request->work_place,
+
+
                 'd_day'  => $request->d_day,
                 'd_amount'  => $request->d_amount,
                 'd_total'  => $request->d_total,
+
+
                 'status'           => $request->status,
             ]);
 
@@ -151,9 +155,16 @@ class TripController extends Controller
                 'vehicle_no'    => $request->vehicle_no,
                 'bill_amount'   => $request->total_rent, // fixed
                 'driver_name'   => $request->driver_name,
+
                 'd_day'  => $request->d_day,
                 'd_amount'  => $request->d_amount,
                 'd_total'  => $request->d_total,
+
+                'work_time'  => $request->work_time,
+                'rate'  => $request->rate,
+                'work_place'  => $request->work_place,
+
+
             ]);
 
             DB::commit();
@@ -176,6 +187,8 @@ class TripController extends Controller
 
 
 
+
+
     public function show($id)
     {
         $trip = trip::find($id);
@@ -184,6 +197,9 @@ class TripController extends Controller
         }
         return response()->json($trip);
     }
+
+
+
 
     public function update(Request $request, $id)
     {
@@ -203,7 +219,7 @@ class TripController extends Controller
                 'unload_point'     => $request->unload_point,
                 'transport_type'   => $request->transport_type,
                 'trip_type'        => $request->trip_type,
-                'trip_id'          => $request->trip_id,
+                'trip_no'          => $request->trip_no,
                 'sms_sent'         => $request->sms_sent,
                 'vehicle_no'       => $request->vehicle_no,
                 'driver_name'      => $request->driver_name,
@@ -231,6 +247,12 @@ class TripController extends Controller
                 'others_cost'      => $request->others_cost,
                 'vendor_name'      => $request->vendor_name,
                 'additional_cost'  => $request->additional_cost,
+                'created_by'  => $request->created_by,
+
+                'work_time'  => $request->work_time,
+                'rate'  => $request->rate,
+                'work_place'  => $request->work_place,
+
                 'status'           => $request->status,
             ]);
 
@@ -240,7 +262,7 @@ class TripController extends Controller
                     ['trip_id' => $trip->id], // condition
                     [
                         'user_id'          => Auth::id(),
-                        'date'             => $request->start_date,
+                        'date'             => $request->date,
                         'driver_name'      => $request->driver_name,
                         'load_point'       => $request->load_point,
                         'unload_point'     => $request->unload_point,
@@ -265,7 +287,7 @@ class TripController extends Controller
                     ['trip_id' => $trip->id], // condition
                     [
                         'user_id'     => Auth::id(),
-                        'date'        => $request->start_date,
+                        'date'        => $request->date,
                         'driver_name' => $request->driver_name,
                         'load_point'  => $request->load_point,
                         'unload_point' => $request->unload_point,
@@ -284,13 +306,14 @@ class TripController extends Controller
                 ['trip_id' => $trip->id],
                 [
                     'user_id'     => Auth::id(),
-                    'date'        => $request->start_date,
+                    'date'        => $request->date,
                     'unload_point' => $request->unload_point,
                     'load_point'  => $request->load_point,
                     'customer'    => $request->customer,
                     'branch_name' => $request->branch_name,
                     'status'      => $request->status ?? "Pending",
                     'cash_out'    => $request->total_exp,
+
                     'created_by'  => Auth::id(),
                 ]
             );
@@ -299,7 +322,7 @@ class TripController extends Controller
             CustomerLedger::updateOrCreate(
                 ['trip_id' => $trip->id],
                 [
-                    'working_date'  => $request->start_date,
+                    'working_date'  => $request->date,
                     'customer_name' => $request->customer,
                     'chalan'       => $request->challan,
                     'load_point'    => $request->load_point,
@@ -307,6 +330,13 @@ class TripController extends Controller
                     'vehicle_no'    => $request->vehicle_no,
                     'bill_amount'   => $request->total_rent,
                     'driver_name'   => $request->driver_name,
+                    'd_day'  => $request->d_day,
+                    'd_amount'  => $request->d_amount,
+                    'd_total'  => $request->d_total,
+
+                    'work_time'  => $request->work_time,
+                    'rate'  => $request->rate,
+                    'work_place'  => $request->work_place,
                 ]
             );
 
@@ -327,6 +357,11 @@ class TripController extends Controller
             ], 500);
         }
     }
+
+
+
+
+
 
 
     public function destroy($id)

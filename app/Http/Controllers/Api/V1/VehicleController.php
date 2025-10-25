@@ -20,29 +20,14 @@ class VehicleController extends Controller
     public function store(Request $request)
     {
         try {
-            $vehicle = Vehicle::create([
-                'user_id'          => Auth::id(),
-                'date'             => $request->date,
-                'driver_name'      => $request->driver_name,
-                'vehicle_name'     => $request->vehicle_name,
-                'insurance_date'   => $request->insurance_date ?? null,
-                'vehicle_size'     => $request->vehicle_size,
-                'vehicle_category' => $request->vehicle_category,
-                'reg_zone'         => $request->reg_zone,
-                'reg_serial'       => $request->reg_serial,
-                'reg_no'           => $request->reg_no,
-                'reg_date'         => $request->reg_date,
-                'status'           => $request->status,
-                'tax_date'         => $request->tax_date,
-                'route_per_date'   => $request->route_per_date,
-                'fitness_date'     => $request->fitness_date,
-                'fuel_capcity'     => $request->fuel_capcity,
-            ]);
+
+
+            $Vehicle = Vehicle::create($request->all() + ['user_id' => Auth::id()]);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Vehicle created successfully',
-                'data' => $vehicle
+                'data' => $Vehicle
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
@@ -68,42 +53,13 @@ class VehicleController extends Controller
     // Update vehicle
     public function update(Request $request, $id)
     {
-        try {
-            // যেটা আপডেট করতে হবে সেই Vehicle বের করো
-            $vehicle = Vehicle::findOrFail($id);
-
-            // আপডেট করো
-            $vehicle->update([
-                'user_id'          => Auth::id(), // চাইলে user_id ফিক্সড করে দিতে পারেন
-                'date'             => $request->date,
-                'driver_name'      => $request->driver_name,
-                'vehicle_name'     => $request->vehicle_name,
-                'insurance_date'   => $request->insurance_date ?? null,
-                'vehicle_size'     => $request->vehicle_size,
-                'vehicle_category' => $request->vehicle_category,
-                'reg_zone'         => $request->reg_zone,
-                'reg_serial'       => $request->reg_serial,
-                'reg_no'           => $request->reg_no,
-                'reg_date'         => $request->reg_date,
-                'status'           => $request->status,
-                'tax_date'         => $request->tax_date,
-                'route_per_date'   => $request->route_per_date,
-                'fitness_date'     => $request->fitness_date,
-                'fuel_capcity'     => $request->fuel_capcity,
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Vehicle updated successfully',
-                'data'    => $vehicle
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Server Error',
-                'error'   => $e->getMessage()
-            ], 500);
+        $Vehicle = Vehicle::find($id);
+        if (!$Vehicle) {
+            return response()->json(['success' => false, 'message' => 'Vendor not found'], 404);
         }
+
+        $Vehicle->update($request->all());
+        return response()->json(['success' => true, 'message' => 'Vendor updated successfully', 'data' => $Vehicle]);
     }
 
     // Delete vehicle

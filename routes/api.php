@@ -158,18 +158,16 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('bonous', BonousController::class);
 
 
-    //  
     // Garage customer
     Route::apiResource('garageCustomer', GarageCustomerController::class);
-    
+
     // garage vara
     Route::apiResource('garageVara', GarageVaraController::class);
 
-    // 
+    // garage exp
     Route::apiResource('garageExp', GarageCustomerExpenseController::class);
 
-    // 
+    // customer ledger
     Route::apiResource('garageCustomerLedger', GarageCustomerLedgerController::class);
-   
   });
 });

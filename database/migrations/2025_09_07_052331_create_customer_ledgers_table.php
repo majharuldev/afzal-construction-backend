@@ -38,7 +38,9 @@ return new class extends Migration
             $table->string('d_amount')->nullable();
             $table->string('d_total')->nullable();
 
-
+            $table->string('work_time')->nullable();
+            $table->string('rate')->nullable();
+            $table->string('work_place')->nullable();
 
             $table->timestamps();
         });

@@ -28,6 +28,13 @@ return new class extends Migration
             $table->string('advance')->nullable();
             $table->string('due_amount')->nullable();
             $table->string('pay_amount')->nullable();
+
+
+            $table->string('work_time')->nullable();
+            $table->string('rate')->nullable();
+            $table->string('work_place')->nullable();
+
+            
             $table->timestamps();
         });
     }
