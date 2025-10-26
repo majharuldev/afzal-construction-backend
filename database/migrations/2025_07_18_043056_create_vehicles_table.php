@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('user_id'); // vehicle belongs to a user
-            $table->string('operator_name')->nullable();
+            $table->string('driver_name')->nullable();
             $table->string('vehicle_name')->nullable();
             $table->string('insurance_date')->nullable();
-            $table->string('vehcile_size')->nullable();
+            $table->string('vehicle_size')->nullable();
             $table->string('vehicle_type')->nullable();
             $table->string('vehicle_category')->nullable();
             $table->string('reg_zone')->nullable();

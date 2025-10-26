@@ -60,6 +60,8 @@ return new class extends Migration
             $table->string('work_time')->nullable();
             $table->string('rate')->nullable();
             $table->string('work_place')->nullable();
+            // more
+            $table->string('trip_count')->nullable();
 
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();
