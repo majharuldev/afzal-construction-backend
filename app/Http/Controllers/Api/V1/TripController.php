@@ -31,7 +31,19 @@ class TripController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
+        $image = null;
 
+        // ✅ শুধু image থাকলে upload করবে
+        if ($request->hasFile('image')) {
+            $image_name = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('uploads/log'), $image_name);
+            $image = $image_name;
+        }
+
+
+
+        // ✅ Full image URL তৈরি
+        $image_url = $image ? url('uploads/log/' . $image) : null;
         try {
             // Insert into trips table
             $trip = Trip::create([
@@ -79,13 +91,19 @@ class TripController extends Controller
                 'work_time'  => $request->work_time,
                 'rate'  => $request->rate,
                 'work_place'  => $request->work_place,
+                'trip_count'  => $request->trip_count,
+                'log_ref'  => $request->log_ref,
+                'log_sign'  => $request->log_sign,
+                'trans__cost'  => $request->trans__cost,
+                'image'  => $image,
+                'extra_bill'  => $request->extra_bill,
+
+
 
 
                 'd_day'  => $request->d_day,
                 'd_amount'  => $request->d_amount,
                 'd_total'  => $request->d_total,
-
-
                 'status'           => $request->status,
             ]);
 
@@ -173,6 +191,7 @@ class TripController extends Controller
                 'success' => true,
                 'message' => 'Trip created successfully',
                 'data'    => $trip,
+                'image_url' => $image_url,
             ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -209,6 +228,15 @@ class TripController extends Controller
             // Find existing trip
             $trip = Trip::findOrFail($id);
 
+
+            $image = $trip->image;
+
+
+            if ($request->hasFile('image')) {
+                $image_name = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('uploads/log'), $image_name);
+                $image = url('uploads/log/' . $image_name);
+            }
             // Update trip table
             $trip->update([
                 'customer'         => $request->customer,
@@ -252,6 +280,11 @@ class TripController extends Controller
                 'work_time'  => $request->work_time,
                 'rate'  => $request->rate,
                 'work_place'  => $request->work_place,
+                'trip_count'  => $request->trip_count,
+                'log_ref'  => $request->log_ref,
+                'log_sign'  => $request->log_sign,
+                'image'  => $image,
+                'extra_bill'  => $request->extra_bill,
 
                 'status'           => $request->status,
             ]);

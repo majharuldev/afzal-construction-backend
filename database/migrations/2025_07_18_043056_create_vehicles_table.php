@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('fitness_date')->nullable();
             $table->string('fuel_capcity')->nullable();
             $table->string('created_by')->nullable();
+            $table->string('kpl')->nullable();
             $table->timestamps();
         });
     }

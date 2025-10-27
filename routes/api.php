@@ -73,7 +73,7 @@ Route::prefix('v1')->group(function () {
 
     // purchase
     Route::apiResource('purchase', PurchaseController::class);
-
+    Route::post('purchase/{id}', [PurchaseController::class, 'update']);
     // parts route
     Route::apiResource('parts', PartsController::class);
 
@@ -100,6 +100,11 @@ Route::prefix('v1')->group(function () {
 
     // employee
     Route::apiResource('employee', EmployeeController::class);
+    
+    // update employee
+    Route::post('employee/{id}', [PurchaseController::class, 'update']);
+
+
 
     // customer
     Route::apiResource('customer', CustomerController::class);

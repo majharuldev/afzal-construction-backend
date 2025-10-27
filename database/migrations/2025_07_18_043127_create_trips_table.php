@@ -62,10 +62,14 @@ return new class extends Migration
             $table->string('work_place')->nullable();
             // more
             $table->string('trip_count')->nullable();
+            $table->string('trans__cost')->nullable();
+            $table->string('log_ref')->nullable();
+            $table->string('log_sign')->nullable();
+            $table->string('image')->nullable();
+            $table->string('extra_bill')->nullable();
 
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();
-            // equiupmen 
             $table->timestamps();
         });
     }
