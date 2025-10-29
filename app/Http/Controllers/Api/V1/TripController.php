@@ -104,7 +104,7 @@ class TripController extends Controller
                 'd_day'  => $request->d_day,
                 'd_amount'  => $request->d_amount,
                 'd_total'  => $request->d_total,
-                'status'           => $request->status,
+                'status'           => "Pending",
             ]);
 
             // Insert into driver or vendor ledger based on transport type
@@ -156,6 +156,7 @@ class TripController extends Controller
                 'load_point'  => $request->load_point,
                 'customer'    => $request->customer,
                 'trip_id'     => $trip->id,
+                'remarks'          => $request->remarks,
                 'branch_name' => $request->branch_name,
                 'status'      => "Pending", // fixed
                 'cash_out'    => $request->total_exp,
