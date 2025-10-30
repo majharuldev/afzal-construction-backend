@@ -14,7 +14,7 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $data = Payment::all();
+        $data = Payment::with('purchase.items')->get(); // payment + purchase + items একসাথে
 
         return response()->json([
             'status' => 'Success',
@@ -69,7 +69,7 @@ class PaymentController extends Controller
             ]);
 
             DB::commit();
-
+            $payment->load('items');
             return response()->json([
                 'success' => true,
                 'message' => 'Payment updated successfully',
@@ -90,7 +90,7 @@ class PaymentController extends Controller
 
     public function show($id)
     {
-        $data = Payment::findOrFail($id);
+        $data = Payment::with('purchase.items')->findOrFail($id);
 
         return response()->json([
             'status' => 'Success',

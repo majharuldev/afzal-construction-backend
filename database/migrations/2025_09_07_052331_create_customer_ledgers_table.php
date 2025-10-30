@@ -42,6 +42,8 @@ return new class extends Migration
             $table->string('rate')->nullable();
             $table->string('work_place')->nullable();
 
+            $table->string('extra_bill')->nullable();
+
             $table->timestamps();
         });
     }

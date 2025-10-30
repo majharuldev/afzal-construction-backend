@@ -9,6 +9,5 @@ class trip extends Model
     //
 
 
-    protected $guarded=[''];
-    
+    protected $guarded = [];
 }

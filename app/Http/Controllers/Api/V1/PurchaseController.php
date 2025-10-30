@@ -132,7 +132,7 @@ class PurchaseController extends Controller
     public function show($id)
     {
         $data = Purchase::findOrFail($id);
-
+        $data->load('items');
         return response()->json([
             'status' => 'Success',
             'data' => $data
@@ -140,93 +140,7 @@ class PurchaseController extends Controller
     }
 
 
-    // public function update(Request $request, $id)
-    // {
-    //     // Find the existing Purchase record
-    //     $purchase = Purchase::findOrFail($id);
-
-    //     DB::beginTransaction();
-
-    //     try {
-    //         // 1) Main Purchase update
-    //         $purchase->update([
-    //             'date'              => $request->date,
-    //             'supplier_name'     => $request->supplier_name,
-    //             'category'          => $request->category,
-    //             'purchase_amount'   => $request->purchase_amount, // FRONTEND total
-    //             'remarks'           => $request->remarks,
-    //             'driver_name'       => $request->driver_name,
-    //             'branch_name'       => $request->branch_name,
-    //             'vehicle_no'        => $request->vehicle_no,
-    //             'vehicle_category'  => $request->vehicle_category,
-    //             'priority'          => $request->priority,
-    //             'validity'          => $request->validity,
-    //             'next_service_date' => $request->next_service_date,
-    //             'service_date'      => $request->service_date,
-    //             'last_km'           => $request->last_km,
-    //             'next_km'           => $request->next_km,
-    //             // 'status' and 'updated_by' might also be included
-    //         ]);
-
-    //         // 2) Update/Replace items in purchase_items
-
-    //         // A. Delete existing items associated with this purchase ID
-    //         purchase_items::where('purchase_id', $purchase->id)->delete();
-
-    //         // B. Insert the new/updated items
-    //         foreach ($request->item_name as $key => $name) {
-    //             purchase_items::create([
-    //                 'purchase_id' => $purchase->id,
-    //                 'item_name'   => $name,
-    //                 'quantity'    => $request->quantity[$key],
-    //                 'unit_price'  => $request->unit_price[$key],
-    //                 'total'       => $request->total[$key],
-    //             ]);
-    //         }
-
-    //         // 3) Single ledger entry update
-    //         // We find the existing ledger entry related to this purchase
-    //         SupplierLedger::where('purchase_id', $purchase->id)->update([
-    //             'date'              => $request->date,
-    //             'purchase_amount'   => $request->purchase_amount,
-    //             'catagory'          => $request->category,
-    //             'supplier_name'     => $request->supplier_name,
-    //             'remarks'           => $request->remarks,
-    //             // 'updated_by' might also be included
-    //         ]);
-
-    //         // 4) Single payment entry update
-    //         // We find the existing payment entry related to this purchase
-    //         Payment::where('purchase_id', $purchase->id)->update([
-    //             'date'           => $request->date,
-    //             'supplier_name'  => $request->supplier_name,
-    //             'category'       => $request->category,
-    //             'total_amount'   => $request->purchase_amount,
-    //             'due_amount'     => $request->purchase_amount, // Assuming payment is reset/re-calculated elsewhere
-    //             'remarks'        => $request->remarks,
-    //             'driver_name'    => $request->driver_name,
-    //             'branch_name'    => $request->branch_name,
-    //             'vehicle_no'     => $request->vehicle_no,
-    //             // 'updated_by' might also be included
-    //         ]);
-
-    //         DB::commit();
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'message' => 'Purchase updated successfully',
-    //         ], 200);
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'Something went wrong during update',
-    //             'error'   => $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
-
+   
 
     public function update(Request $request, $id)
     {

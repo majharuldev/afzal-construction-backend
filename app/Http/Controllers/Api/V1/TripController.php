@@ -85,7 +85,7 @@ class TripController extends Controller
                 'others_cost'      => $request->others_cost,
                 'vendor_name'      => $request->vendor_name,
                 'additional_cost'  => $request->additional_cost,
-                'created_by'  => $request->created_by,
+                'created_by'  => Auth::id(),
 
                 // equipment
                 'work_time'  => $request->work_time,
@@ -130,6 +130,10 @@ class TripController extends Controller
                     'others_cost'      => $request->others_cost,
                     'labor'            => $request->labor,
                     'total_exp'        => $request->total_exp,
+
+                    'work_time'  => $request->work_time,
+                    'rate'  => $request->rate,
+                    'work_place'  => $request->work_place,
                 ]);
             } else {
                 VendorLedger::create([
@@ -142,9 +146,12 @@ class TripController extends Controller
                     'customer'    => $request->customer,
                     'vendor_name' => $request->vendor_name,
                     'vehicle_no'  => $request->vehicle_no,
-                    'total_rent'   => $request->total_rent,   // fixed
+                    'trip_rent'   => $request->total_rent,   // fixed
                     'advance'     => $request->advance,
                     'due_amount'  => $request->due_amount,
+                    'work_time'  => $request->work_time,
+                    'rate'  => $request->rate,
+                    'work_place'  => $request->work_place,
                 ]);
             }
 
@@ -173,11 +180,10 @@ class TripController extends Controller
                 'unload_point'  => $request->unload_point,
                 'vehicle_no'    => $request->vehicle_no,
                 'bill_amount'   => $request->total_rent, // fixed
-                'driver_name'   => $request->driver_name,
-
                 'd_day'  => $request->d_day,
                 'd_amount'  => $request->d_amount,
                 'd_total'  => $request->d_total,
+                'extra_bill'  => $request->extra_bill,
 
                 'work_time'  => $request->work_time,
                 'rate'  => $request->rate,
@@ -313,6 +319,9 @@ class TripController extends Controller
                         'chada'            => $request->chada,
                         'others_cost'      => $request->others_cost,
                         'labor'            => $request->labor,
+                        'work_place'  => $request->work_place,
+                        'rate'  => $request->rate,
+                        'work_time'  => $request->work_time,
                         'total_exp'        => $request->total_exp,
                     ]
                 );
@@ -328,9 +337,12 @@ class TripController extends Controller
                         'customer'    => $request->customer,
                         'vendor_name' => $request->vendor_name,
                         'vehicle_no'  => $request->vehicle_no,
-                        'total_rent'   => $request->total_rent,
+                        'trip_rent'   => $request->total_exp,
                         'advance'     => $request->advance,
                         'due_amount'  => $request->due_amount,
+                        'work_time'  => $request->work_time,
+                        'rate'  => $request->rate,
+                        'work_place'  => $request->work_place,
                     ]
                 );
             }
@@ -363,10 +375,10 @@ class TripController extends Controller
                     'unload_point'  => $request->unload_point,
                     'vehicle_no'    => $request->vehicle_no,
                     'bill_amount'   => $request->total_rent,
-                    'driver_name'   => $request->driver_name,
                     'd_day'  => $request->d_day,
                     'd_amount'  => $request->d_amount,
                     'd_total'  => $request->d_total,
+                    'extra_bill'  => $request->extra_bill,
 
                     'work_time'  => $request->work_time,
                     'rate'  => $request->rate,

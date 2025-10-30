@@ -91,6 +91,7 @@ Route::prefix('v1')->group(function () {
 
     // trip
     Route::apiResource('trip', TripController::class);
+    Route::post('trip/{id}', [TripController::class, 'update']);
 
     // driver
     Route::apiResource('driver', DriverController::class);
@@ -100,7 +101,7 @@ Route::prefix('v1')->group(function () {
 
     // employee
     Route::apiResource('employee', EmployeeController::class);
-    
+
     // update employee
     Route::post('employee/{id}', [PurchaseController::class, 'update']);
 

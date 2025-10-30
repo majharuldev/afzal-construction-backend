@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('amount')->nullable();
             $table->string('salary_month')->nullable();
             $table->string('status')->nullable();
+            $table->string('adjustment')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();
         });

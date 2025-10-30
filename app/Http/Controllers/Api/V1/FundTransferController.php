@@ -32,13 +32,15 @@ class FundTransferController extends Controller
                 'user_id' => Auth::id(),
                 'date' => $request->date,
                 'purpose'        => $request->purpose,
-                'branch_name'  => $request->branch_name,
+                'sender_branch'  => $request->sender_branch,
+                'rec_branch'  => $request->rec_branch,
                 'person_name'  => $request->person_name,
                 'type' => $request->type,
                 'amount' => $request->amount,
                 'bank_name' => $request->bank_name,
-                'remarks' => $request->remarks,
-                'created_by'   => $request->created_by,
+                'ref' => $request->ref,
+                'status' => "paid",
+                'created_by'   => Auth::id(),
 
             ]);
 
@@ -47,10 +49,10 @@ class FundTransferController extends Controller
                 'user_id' => Auth::id(),
                 'date'        => $request->date,
                 'accounts_id' => $FundTransfer->id,
-                'branch_name' => $request->branch_name,
+                'branch_name' => $request->rec_branch,
                 'cash_in'     => $request->amount,
-                'remarks'     => $request->remarks,
-                'created_by'  => $request->created_by,
+                'remarks'     => $request->purpose,
+                'created_by'  => Auth::id(),
             ]);
 
 
@@ -93,15 +95,17 @@ class FundTransferController extends Controller
             // Update FundTransfer
             $FundTransfer->update([
                 'user_id' => Auth::id(),
-                'date'        => $request->date,
+                'date' => $request->date,
                 'purpose'        => $request->purpose,
-                'branch'      => $request->branch,
-                'person_name' => $request->person_name,
-                'type'        => $request->type,
-                'amount'      => $request->amount,
-                'bank_name'   => $request->bank_name,
-                'remarks'     => $request->remarks,
-                'created_by'  => $request->created_by,
+                'sender_branch'  => $request->sender_branch,
+                'rec_branch'  => $request->rec_branch,
+                'person_name'  => $request->person_name,
+                'type' => $request->type,
+                'amount' => $request->amount,
+                'bank_name' => $request->bank_name,
+                'ref' => $request->ref,
+                'status' => "paid",
+
 
             ]);
 
@@ -110,10 +114,11 @@ class FundTransferController extends Controller
                 ->update([
                     'user_id' => Auth::id(),
                     'date'        => $request->date,
-                    'branch_name' => $request->branch_name,
+                    'accounts_id' => $FundTransfer->id,
+                    'branch_name' => $request->rec_branch,
                     'cash_in'     => $request->amount,
-                    'remarks'     => $request->remarks,
-                    'created_by'  => $request->created_by,
+                    'remarks'     => $request->purpose,
+                    'created_by'  => Auth::id(),
                 ]);
 
             DB::commit();
@@ -137,10 +142,14 @@ class FundTransferController extends Controller
     public function destroy($id)
     {
         $data = FundTransfer::findOrFail($id);
+
+
+        OfficeLedger::where('accounts_id', $data->id)->delete();
         $data->delete();
         return response()->json([
-            'status' => 'Success',
-            'data' => $data
+            'success' => true,
+            'message' => 'Deleted',
+
         ], 200);
     }
 }

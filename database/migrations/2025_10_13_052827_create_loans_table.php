@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('employee_id')->nullable();
             $table->string('amount')->nullable();
             $table->string('date')->nullable();
+            $table->string('adjustment')->nullable();
             $table->string('monthly_deduction')->nullable();
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();
