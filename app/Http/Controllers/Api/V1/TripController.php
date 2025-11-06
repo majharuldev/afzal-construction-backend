@@ -22,7 +22,6 @@ class TripController extends Controller
 
         $trips = Trip::latest()->get();
 
-
         return response()->json($trips);
     }
 
@@ -97,9 +96,6 @@ class TripController extends Controller
                 'trans__cost'  => $request->trans__cost,
                 'image'  => $image,
                 'extra_bill'  => $request->extra_bill,
-
-
-
 
                 'd_day'  => $request->d_day,
                 'd_amount'  => $request->d_amount,
@@ -403,10 +399,6 @@ class TripController extends Controller
             ], 500);
         }
     }
-
-
-
-
 
 
 

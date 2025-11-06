@@ -118,7 +118,7 @@ Route::prefix('v1')->group(function () {
 
 
     // payment recieve
-    Route::apiResource('payment-recieve', PaymentRecieveController::class);
+    Route::apiResource('paymentRec', PaymentRecieveController::class);
 
     // supplier
     Route::apiResource('supplier', SupplierController::class);
@@ -162,6 +162,12 @@ Route::prefix('v1')->group(function () {
 
     // bonous
     Route::apiResource('bonous', BonousController::class);
+
+
+
+
+    // check up all
+    
 
 
     // Garage customer

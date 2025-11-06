@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('load_point')->nullable();
             $table->string('unload_point')->nullable();
             $table->string('bill_amount')->nullable();
+            $table->string('rec_amount')->nullable();
             $table->string('vat')->nullable();
             $table->string('total_amount')->nullable();
             $table->string('due_amount')->nullable();

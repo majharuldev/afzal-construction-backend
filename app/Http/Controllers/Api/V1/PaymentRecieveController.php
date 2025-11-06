@@ -54,6 +54,7 @@ class PaymentRecieveController extends Controller
                 'customer'           => $request->customer_name,
                 'branch_name' => $request->branch_name,
                 'cash_in'      => $request->amount,
+                'remarks' => $request->remarks,
                 'created_by'         => $request->created_by,
             ]);
 
@@ -127,11 +128,11 @@ class PaymentRecieveController extends Controller
 
             // Update CustomerLedger
             CustomerLedger::where('payment_rec_id', $payment_rec->id)->update([
-                'bill_date'     => $request->date,
-                'customer_name' => $request->customer_name,
-                'rec_amount'    => $request->amount,
-                'remarks'    => $request->remarks,
-                'created_by'    => $request->created_by,
+                'bill_date'  => $request->date,
+                'payment_rec_id' => $payment_rec->id,
+                'customer_name'  => $request->customer_name,
+                'rec_amount' => $request->amount,
+                'created_by'  => $request->created_by,
             ]);
 
             DB::commit();

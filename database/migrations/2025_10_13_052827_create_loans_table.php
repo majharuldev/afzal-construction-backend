@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('amount')->nullable();
             $table->string('date')->nullable();
             $table->string('adjustment')->nullable();
+            $table->string('branch_name')->nullable();
+            $table->string('remarks')->nullable();
             $table->string('monthly_deduction')->nullable();
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();

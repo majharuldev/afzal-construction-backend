@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class GarageCustomer extends Model
 {
-    protected $guarded=[''];
+    protected $guarded=[];
 }

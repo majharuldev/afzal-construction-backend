@@ -61,7 +61,7 @@ class VendorPaymentController extends Controller
             VendorLedger::create([
                 'user_id' => Auth::id(),
                 'date'                    => $request->date,
-                'payment_id'               => $dailyExp->id,
+                'bill_id'               => $dailyExp->id,
                 'pay_amount'           => $request->amount,
                 'vendor_name'  => $request->vendor_name,
                 'branch_name'           => $request->branch_name,

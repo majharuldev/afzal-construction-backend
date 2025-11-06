@@ -64,12 +64,14 @@ class PaymentController extends Controller
                 'date'         => $request->created_at ?? now(),
                 'branch_name'  => $request->branch_name,
                 'payment_id'  => $payment->id,
-                'remarks'      => $request->item_name,
+                'remarks'      => $request->remarks,
                 'cash_out'     => $request->pay_amount,
             ]);
 
             DB::commit();
-            $payment->load('items');
+
+            $payment = Payment::with('purchase.items')->get();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Payment updated successfully',

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentRec extends Model
 {
-    protected $guarded=[''];
+    protected $guarded=[];
 }

@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('daily_expenses', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('user_id'); // vehicle belongs to a user
-            $table->string('date');
-            $table->string('branch_name');
-            $table->string('particulars');
-            $table->string('payment_category');
-            $table->string('paid_to');
-            $table->string('amount');
-            $table->string('status');
-            $table->string('created_by');
+            $table->string('date')->nullable();
+            $table->string('branch_name')->nullable();
+            $table->string('particulars')->nullable();
+            $table->string('payment_category')->nullable();
+            $table->string('paid_to')->nullable();
+            $table->string('remarks')->nullable();
+            $table->string('amount')->nullable();
+            $table->string('status')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }

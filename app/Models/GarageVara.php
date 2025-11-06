@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class GarageVara extends Model
 {
-    protected $guarded=[''];
+    protected $guarded=[];
 }
