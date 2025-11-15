@@ -68,6 +68,14 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('extra_bill')->nullable();
 
+
+            $table->string('helper_name')->nullable();
+            $table->string('equipment_type')->nullable();
+
+
+         
+
+
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();

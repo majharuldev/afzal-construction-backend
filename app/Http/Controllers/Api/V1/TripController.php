@@ -39,8 +39,6 @@ class TripController extends Controller
             $image = $image_name;
         }
 
-
-
         // ✅ Full image URL তৈরি
         $image_url = $image ? url('uploads/log/' . $image) : null;
         try {
@@ -83,8 +81,19 @@ class TripController extends Controller
                 'challan_cost'     => $request->challan_cost,
                 'others_cost'      => $request->others_cost,
                 'vendor_name'      => $request->vendor_name,
+
                 'additional_cost'  => $request->additional_cost,
+
+
+                'helper_name'  => $request->helper_name,
+                'equipment_type'  => $request->equipment_type,
+
+
+
                 'created_by'  => Auth::id(),
+
+
+
 
                 // equipment
                 'work_time'  => $request->work_time,
@@ -279,6 +288,13 @@ class TripController extends Controller
                 'vendor_name'      => $request->vendor_name,
                 'additional_cost'  => $request->additional_cost,
                 'created_by'  => $request->created_by,
+
+
+
+                'helper_name'  => $request->helper_name,
+                'equipment_type'  => $request->equipment_type,
+
+
 
                 'work_time'  => $request->work_time,
                 'rate'  => $request->rate,
