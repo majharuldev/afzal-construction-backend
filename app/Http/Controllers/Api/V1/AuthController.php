@@ -128,4 +128,32 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
+
+
+    public function destroy($id)
+    {
+        try {
+            $user = \App\Models\User::find($id);
+
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+            $user->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User deleted successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
