@@ -83,7 +83,7 @@ class TripController extends Controller
                 'vendor_name'      => $request->vendor_name,
 
                 'additional_cost'  => $request->additional_cost,
-
+                'trans_cost_type'  => $request->trans_cost_type,
 
                 'helper_name'  => $request->helper_name,
                 'equipment_type'  => $request->equipment_type,
@@ -94,7 +94,6 @@ class TripController extends Controller
 
 
 
-
                 // equipment
                 'work_time'  => $request->work_time,
                 'rate'  => $request->rate,
@@ -102,7 +101,7 @@ class TripController extends Controller
                 'trip_count'  => $request->trip_count,
                 'log_ref'  => $request->log_ref,
                 'log_sign'  => $request->log_sign,
-                'trans__cost'  => $request->trans__cost,
+                'trans_cost'  => $request->trans_cost,
                 'image'  => $image,
                 'extra_bill'  => $request->extra_bill,
 
@@ -289,11 +288,12 @@ class TripController extends Controller
                 'additional_cost'  => $request->additional_cost,
                 'created_by'  => $request->created_by,
 
-
-
                 'helper_name'  => $request->helper_name,
                 'equipment_type'  => $request->equipment_type,
 
+
+                'trans_cost'  => $request->trans_cost,
+                'trans_cost_type'  => $request->trans_cost_type,
 
 
                 'work_time'  => $request->work_time,
@@ -380,6 +380,7 @@ class TripController extends Controller
             CustomerLedger::updateOrCreate(
                 ['trip_id' => $trip->id],
                 [
+                    'user_id'          => Auth::id(),
                     'working_date'  => $request->date,
                     'customer_name' => $request->customer,
                     'chalan'       => $request->challan,

@@ -55,26 +55,21 @@ return new class extends Migration
             $table->string('d_day')->nullable();
             $table->string('d_total')->nullable();
             $table->string('d_amount')->nullable();
-
             // equip extra
             $table->string('work_time')->nullable();
             $table->string('rate')->nullable();
             $table->string('work_place')->nullable();
             // more
             $table->string('trip_count')->nullable();
-            $table->string('trans__cost')->nullable();
+            $table->string('trans_cost')->nullable();
+            $table->string('trans_cost_type')->nullable();
             $table->string('log_ref')->nullable();
             $table->string('log_sign')->nullable();
             $table->string('image')->nullable();
             $table->string('extra_bill')->nullable();
 
-
             $table->string('helper_name')->nullable();
             $table->string('equipment_type')->nullable();
-
-
-         
-
 
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();
