@@ -16,7 +16,8 @@ return new class extends Migration
             $table->BigInteger('user_id');
             $table->string('customer_name')->nullable();
             $table->string('vara_id')->nullable();
-            $table->string('amount')->nullable();
+            $table->string('due_amount')->nullable();
+            $table->string('rec_amount')->nullable();
             $table->string('month_name')->nullable();
             $table->string('address')->nullable();
             $table->string('vehicle_category')->nullable();

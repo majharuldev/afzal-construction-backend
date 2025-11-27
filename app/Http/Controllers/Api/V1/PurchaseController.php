@@ -140,36 +140,32 @@ class PurchaseController extends Controller
     }
 
 
-   
+
 
     public function update(Request $request, $id)
     {
-        // Find the existing Purchase record
+
         $purchase = Purchase::findOrFail($id);
 
         DB::beginTransaction();
 
-        // Initialize $image_name to the existing path by default
-        $image_name = $purchase->image;
-        $old_image_to_delete = null;
+
 
         try {
-            // --- Image Handling Logic ---
-            if ($request->hasFile('image')) {
-                // 1. Store the old image name for potential deletion later
-                $old_image_to_delete = $purchase->image;
 
-                // 2. Upload the new image
+            $image = $purchase->image;
+
+            if ($request->hasFile('image')) {
                 $image_name = time() . '.' . $request->image->extension();
                 $request->image->move(public_path('uploads/purchase'), $image_name);
-            } elseif ($request->input('image_removed') == 'true' || $request->input('image_name') === null) {
-                // Check if the frontend explicitly signaled image removal, or if the field is sent empty
-                $old_image_to_delete = $purchase->image;
-                $image_name = null; // Clear the image field in the database
+                $image = url('uploads/purchase/' . $image_name);
             }
-            // If no file is uploaded and no removal flag is set, $image_name remains the existing value.
 
-            // 1) Main Purchase update
+            $purchase->update($request->except('image') + ['image' => $image]);
+
+
+
+
             $purchase->update([
                 'date'              => $request->date,
                 'supplier_name'     => $request->supplier_name,
@@ -191,8 +187,7 @@ class PurchaseController extends Controller
                 // ... (other fields) ...
             ]);
 
-            // 2) Update/Replace items in purchase_items
-            // A. Delete existing items
+
             purchase_items::where('purchase_id', $purchase->id)->delete();
 
             // B. Insert the new/updated items
@@ -233,12 +228,7 @@ class PurchaseController extends Controller
 
             $purchase->load('items');
             // FINAL CLEANUP: Delete the OLD image only AFTER successful commit
-            if ($old_image_to_delete) {
-                $image_path = public_path('uploads/purchase') . '/' . $old_image_to_delete;
-                if (File::exists($image_path)) {
-                    File::delete($image_path);
-                }
-            }
+
 
             return response()->json([
                 'success' => true,

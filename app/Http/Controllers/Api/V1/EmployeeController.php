@@ -72,18 +72,15 @@ class EmployeeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validation = validator([
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg'
-        ]);
-        $image = null;
+        // Validation
+
         $data = Employee::findOrFail($id);
+        $image = $data->image; // আগের ছবি ডিফল্টভাবে রাখুন
+
         if ($request->hasFile('image')) {
-            if ($data->image && file_Exists(public_path('uploads/employee/' . $data->image))) {
-                unlink(public_path('uploads/employee/' . $data->image));
-            }
             $image_name = time() . '.' . $request->image->extension();
             $request->image->move(public_path('uploads/employee'), $image_name);
-            $image = $image_name;
+            $image = url('uploads/employee/' . $image_name);
         }
 
         $data->update($request->except('image') + ['image' => $image]);
@@ -93,6 +90,7 @@ class EmployeeController extends Controller
             'data' => $data
         ], 200);
     }
+
 
 
 
